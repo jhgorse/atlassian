@@ -6,7 +6,8 @@ services:
     links:
       - database
     volumes:
-      - jira-data:/var/atlassian/jira
+      - ~/var/jira-data:/var/atlassian/jira
+      - ~/var/jira-logs:/opt/atlassian/jira/logs
 
   confluence:
     image: cptactionhank/atlassian-confluence:6.9.0
@@ -14,13 +15,15 @@ services:
     links:
       - database
     volumes:
-      - confluence-data:/var/atlassian/confluence
+      - ~/var/confluence-data:/var/atlassian/confluence
+      - ~/var/confluence-logs:/opt/atlassian/confluence/logs
 
   database:
     image: postgres:9.4
     restart: always
     volumes:
-      - database-data:/var/lib/postgresql/data
+      - ./scripts/postgres-initdb.d:/docker-entrypoint-initdb.d
+      - ~/var/database-data:/var/lib/postgresql/data
   nginx:
     image: nginx
     restart: always
