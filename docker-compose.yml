@@ -26,6 +26,9 @@ services:
     volumes:
       - ./scripts/postgres-initdb.d:/docker-entrypoint-initdb.d
       - ~/var/database-data:/var/lib/postgresql/data
+    environment:
+      - 'POSTGRES_PASSWORD=jellyfish'
+
   nginx:
     image: nginx
     restart: always
